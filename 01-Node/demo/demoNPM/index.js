@@ -1,6 +1,6 @@
-const moment = require('moment');
+//const moment = require('moment');
 
-console.log(moment().format("MMMM d YYYY"))
+console.log(("MMMM d YYYY"))
 
 
 
