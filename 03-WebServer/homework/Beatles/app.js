@@ -22,3 +22,39 @@ var beatles=[{
   profilePic:"http://cp91279.biography.com/BIO_Bio-Shorts_0_Ringo-Starr_SF_HD_768x432-16x9.jpg"
 }
 ]
+http
+.createServer((req, res)=>{
+      if(req.url === '/api' || req.url === '/api/'){
+        res.writeHead(200, {'Content-type':'application/json'});
+        res.end(JSON.stringify(beatles))
+      }
+    if(req.url.substring(0, 5) === '/api/' && req.url.length >5){
+      let findBeatle = req.url.split("/").pop()
+      let foundBeatle = beatles.find(beatle => findBeatle === encodeURI(beatle.name))
+      if(foundBeatle){
+        res.writeHead(200, {'Content-type' : 'application/json'})
+        res.end(JSON.stringify(foundBeatle))
+      }else{
+        res.writeHead(404, {'Content-type':'text/plain'})
+        res.end("No existe ese Beatle")
+      }
+    }
+    if(req.url == '/'){
+      res.writeHead(200, {'Content-type':'text/html'})
+      const index = fs.readFileSync(`${__dirname}/index.html`);
+      res.end(index)
+    }
+    let findBeatle = req.url.split("/").pop()
+    let foundBeatle = beatles.find(beatle => findBeatle === encodeURI(beatle.name))
+    if(foundBeatle){
+        res.writeHead(200, {'Content-type' : 'text/html'})
+        let read = fs.readFileSync(`${__dirname}/beatle.html`, 'utf-8')
+        read = read.replace(/{nameBeat}/g, foundBeatle.name)
+        read = read.replace('{birth}', foundBeatle.birthdate)
+        read = read.replace('{profilePic}', foundBeatle.profilePic)
+        res.end(read)
+      }else{
+        res.writeHead(404, {'Content-type':'text/plain'})
+        res.end("No existe ese Beatle")
+      }
+}).listen(3000, '127.0.0.1')
