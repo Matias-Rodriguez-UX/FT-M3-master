@@ -7,9 +7,11 @@ function* generatorShowInstructors() {
 
 var generatorObject = generatorShowInstructors();
 
-console.log(generatorObject.next());
-console.log(generatorObject.next());
-console.log(generatorObject.next());
+const m = generatorObject.next().value
+console.log(m)
+console.log(m)
+//console.log(generatorObject.next());
+//console.log(generatorObject.next());
 
 function* generatorShowInstructorsWithParameter() {
   console.log("Iniciando generator function with parameter");
@@ -19,6 +21,6 @@ function* generatorShowInstructorsWithParameter() {
 
 var generatorObjectParameter = generatorShowInstructorsWithParameter();
 
-generatorObjectParameter.next();
-generatorObjectParameter.next('Franco');
-generatorObjectParameter.next('Toni');
+//generatorObjectParameter.next();
+//generatorObjectParameter.next('Franco');
+//generatorObjectParameter.next('Toni');
